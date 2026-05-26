@@ -1,39 +1,42 @@
-import tkinter as tk
+import customtkinter as ctk
 from tkinter import ttk
 
-class UsuarioView(tk.Frame):
+class UsuarioView(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)
         
-        tk.Label(self, text="Nome do Usuário:").pack(pady=5)
-        self.entry_nome = tk.Entry(self, width=30)
+        ctk.CTkLabel(self, text="Nome do Usuário:", font=("Arial", 14, "bold")).pack(pady=5)
+        self.entry_nome = ctk.CTkEntry(self, width=250, placeholder_text="Digite o nome...")
         self.entry_nome.pack(pady=5)
         
-        self.btn_cadastrar = tk.Button(self, text="Cadastrar Usuário", bg="#4CAF50", fg="white")
-        self.btn_cadastrar.pack(pady=5)
+        self.btn_cadastrar = ctk.CTkButton(self, text="Cadastrar Usuário", fg_color="#4CAF50", hover_color="#45a049")
+        self.btn_cadastrar.pack(pady=10)
         
         self.tree = ttk.Treeview(self, columns=("ID", "Nome"), show="headings")
         self.tree.heading("ID", text="ID")
         self.tree.heading("Nome", text="Nome")
-        self.tree.pack(pady=10, fill=tk.BOTH, expand=True)
+        self.tree.pack(pady=10, fill="both", expand=True)
         
-        self.btn_deletar = tk.Button(self, text="Excluir Selecionado", bg="#f44336", fg="white")
+        self.btn_deletar = ctk.CTkButton(self, text="Excluir Selecionado", fg_color="#f44336", hover_color="#d32f2f")
         self.btn_deletar.pack(pady=5)
 
-class BuscaView(tk.Frame):
+class BuscaView(ctk.CTkFrame):
     def __init__(self, parent, usuarios):
         super().__init__(parent)
-
-        tk.Label(self, text="Usuário Ativo:").pack(pady=2)
-        self.combo_usuario = ttk.Combobox(self, values=[f"{u[0]} - {u[1]}" for u in usuarios], state="readonly")
-        self.combo_usuario.pack(pady=2)
-        if usuarios: self.combo_usuario.current(0)
         
-        tk.Label(self, text="Buscar Filme, Série ou Anime:").pack(pady=5)
-        self.entry_busca = tk.Entry(self, width=40)
+        ctk.CTkLabel(self, text="Usuário Ativo:", font=("Arial", 12)).pack(pady=2)
+        
+        valores_usuarios = [f"{u[0]} - {u[1]}" for u in usuarios]
+        self.combo_usuario = ctk.CTkComboBox(self, values=valores_usuarios, width=200)
+        self.combo_usuario.pack(pady=2)
+        if valores_usuarios: 
+            self.combo_usuario.set(valores_usuarios[0])
+        
+        ctk.CTkLabel(self, text="Buscar Filme, Série ou Anime:", font=("Arial", 14, "bold")).pack(pady=5)
+        self.entry_busca = ctk.CTkEntry(self, width=350, placeholder_text="Ex: Breaking Bad, Naruto...")
         self.entry_busca.pack(pady=5)
         
-        self.btn_buscar = tk.Button(self, text="Pesquisar", bg="#2196F3", fg="white")
+        self.btn_buscar = ctk.CTkButton(self, text="Pesquisar", fg_color="#2196F3", hover_color="#0b7dda")
         self.btn_buscar.pack(pady=5)
         
         self.tree = ttk.Treeview(self, columns=("ID", "Título", "Tipo", "Ano"), show="headings")
@@ -41,28 +44,32 @@ class BuscaView(tk.Frame):
         self.tree.heading("Título", text="Título")
         self.tree.heading("Tipo", text="Tipo")
         self.tree.heading("Ano", text="Ano")
-        self.tree.pack(pady=5, fill=tk.BOTH, expand=True)
+        self.tree.pack(pady=5, fill="both", expand=True)
         
-        frame_botoes = tk.Frame(self)
+        frame_botoes = ctk.CTkFrame(self, fg_color="transparent")
         frame_botoes.pack(pady=10)
-        self.btn_assistir_depois = tk.Button(frame_botoes, text="+ Assistir Depois", bg="#FF9800", fg="white")
-        self.btn_assistir_depois.pack(side=tk.LEFT, padx=10)
-        self.btn_assistido = tk.Button(frame_botoes, text="+ Já Assistido", bg="#4CAF50", fg="white")
-        self.btn_assistido.pack(side=tk.LEFT, padx=10)
+        
+        self.btn_assistir_depois = ctk.CTkButton(frame_botoes, text="+ Assistir Depois", fg_color="#FF9800", hover_color="#e68a00")
+        self.btn_assistir_depois.pack(side="left", padx=10)
+        
+        self.btn_assistido = ctk.CTkButton(frame_botoes, text="+ Já Assistido", fg_color="#4CAF50", hover_color="#45a049")
+        self.btn_assistido.pack(side="left", padx=10)
 
-class ListaView(tk.Frame):
+class ListaView(ctk.CTkFrame):
     def __init__(self, parent, usuarios):
         super().__init__(parent)
         
-        tk.Label(self, text="Usuário:").pack(pady=5)
-        self.combo_usuario = ttk.Combobox(self, values=[f"{u[0]} - {u[1]}" for u in usuarios], state="readonly")
+        ctk.CTkLabel(self, text="Filtrar por Usuário:", font=("Arial", 14, "bold")).pack(pady=5)
+        
+        valores_usuarios = [f"{u[0]} - {u[1]}" for u in usuarios]
+        self.combo_usuario = ctk.CTkComboBox(self, values=valores_usuarios, width=200)
         self.combo_usuario.pack(pady=5)
         
         self.tree = ttk.Treeview(self, columns=("ID_Item", "Título", "Status"), show="headings")
         self.tree.heading("ID_Item", text="ID Registro")
         self.tree.heading("Título", text="Título")
         self.tree.heading("Status", text="Status")
-        self.tree.pack(pady=10, fill=tk.BOTH, expand=True)
+        self.tree.pack(pady=10, fill="both", expand=True)
         
-        self.btn_remover = tk.Button(self, text="Remover da Minha Lista", bg="#f44336", fg="white")
+        self.btn_remover = ctk.CTkButton(self, text="Remover da Minha Lista", fg_color="#f44336", hover_color="#d32f2f")
         self.btn_remover.pack(pady=5)

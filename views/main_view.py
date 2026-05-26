@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 import customtkinter as ctk
 
 ctk.set_appearance_mode("dark")  # Opções: "dark", "light", "system"
@@ -8,7 +9,32 @@ class MainView(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("ToWatch")
-        self.geometry("700x500")
+        self.geometry("800x600")
+
+        # --- ESTILIZAÇÃO DO TREEVIEW PARA MODO DARK ---
+        style = ttk.Style(self)
+        style.theme_use("default") # Reseta o tema para permitir customização
+
+        # Configura as cores do corpo da tabela
+        style.configure("Treeview",
+                        background="#2b2b2b",
+                        foreground="white",
+                        rowheight=25,
+                        fieldbackground="#2b2b2b",
+                        bordercolor="#343638",
+                        borderwidth=0)
+
+        # Configura a cor da linha quando selecionada
+        style.map('Treeview', background=[('selected', '#1f538d')])
+
+        # Configura as cores dos cabeçalhos (Colunas)
+        style.configure("Treeview.Heading",
+                        background="#565b5e",
+                        foreground="white",
+                        relief="flat")
+        
+        style.map("Treeview.Heading", background=[('active', '#3484F0')])
+        # ----------------------------------------------
 
         # Barra de Navegação
         self.nav_frame = ctk.CTkFrame(self, corner_radius=0, fg_color="#1f1f1f")

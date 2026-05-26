@@ -31,11 +31,13 @@ class MainController:
         self.uv = UsuarioView(self.view.content_frame) # Cria no contêiner
         self.uv.pack(fill=tk.BOTH, expand=True) # Exibe o frame
 
+        self.uv.entry_nome.bind("<Return>", self.cadastrar_usuario) # Aperta enter para cadastrar
+
         self.uv.btn_cadastrar.configure(command=self.cadastrar_usuario)
         self.uv.btn_deletar.configure(command=self.deletar_usuario)
         self.atualizar_tabela_usuarios()
 
-    def cadastrar_usuario(self):
+    def cadastrar_usuario(self, event = None):
         nome = self.uv.entry_nome.get().strip()
         if nome:
             self.db.inserir_usuario(nome)
@@ -66,11 +68,13 @@ class MainController:
         self.bv = BuscaView(self.view.content_frame, usuarios)
         self.bv.pack(fill=tk.BOTH, expand=True)
 
+        self.bv.entry_busca.bind("<Return>", self.buscar_na_api) # Aperta enter para pesquisar
+
         self.bv.btn_buscar.configure(command=self.buscar_na_api)
         self.bv.btn_assistir_depois.configure(command=lambda: self.salvar_midia("Assistir Depois"))
         self.bv.btn_assistido.configure(command=lambda: self.salvar_midia("Assistido"))
 
-    def buscar_na_api(self):
+    def buscar_na_api(self, event = None):
         query = self.bv.entry_busca.get().strip()
         resultados = self.api.buscar(query)
         for row in self.bv.tree.get_children():
@@ -97,7 +101,7 @@ class MainController:
         self.lv = ListaView(self.view.content_frame, usuarios)
         self.lv.pack(fill=tk.BOTH, expand=True)
 
-        self.lv.combo_usuario.bind("<<ComboboxSelected>>", self.atualizar_tabela_lista)
+        self.lv.combo_usuario.configure(command=self.atualizar_tabela_lista)
         self.lv.btn_remover.configure(command=self.remover_da_lista)
 
     def atualizar_tabela_lista(self, event=None):

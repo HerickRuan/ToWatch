@@ -6,9 +6,6 @@ class TMDBService:
         self.base_url = "https://api.themoviedb.org/3"
 
     def buscar(self, query):
-        # Fallback caso esteja sem chave de API para testes locais rápidos
-        if self.api_key == "c414b769049f42ead97a7a7bab28cde0" or not query:
-            return [{"id": "101", "titulo": f"{query} (Modo Teste)", "tipo": "Filme", "ano": "2026"}]
         
         url = f"{self.base_url}/search/multi"
         params = {"api_key": self.api_key, "query": query, "language": "pt-BR"}
