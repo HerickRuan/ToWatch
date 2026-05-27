@@ -25,7 +25,7 @@ class Database:
         """)
         self.conn.commit()
 
-    # --- CRUD USUÁRIOS ---
+    # CRUD usuários 
     def inserir_usuario(self, nome):
         self.cursor.execute("INSERT INTO usuarios (nome) VALUES (?)", (nome,))
         self.conn.commit()
@@ -38,7 +38,7 @@ class Database:
         self.cursor.execute("DELETE FROM usuarios WHERE id = ?", (id_usuario,))
         self.conn.commit()
 
-    # --- CRUD LISTA DE MÍDIAS ---
+    # CRUD lista de mídias
     def inserir_midia(self, id_usuario, id_api, titulo, status):
         self.cursor.execute(
             "INSERT INTO minha_lista (id_usuario, id_api_titulo, titulo, status) VALUES (?, ?, ?, ?)",

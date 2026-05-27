@@ -11,7 +11,8 @@ class UsuarioView(ctk.CTkFrame):
         
         self.btn_cadastrar = ctk.CTkButton(self, text="Cadastrar Usuário", fg_color="#4CAF50", hover_color="#45a049")
         self.btn_cadastrar.pack(pady=10)
-        
+
+        # Tabela de Exibição de usuários
         self.tree = ttk.Treeview(self, columns=("ID", "Nome"), show="headings")
         self.tree.heading("ID", text="ID")
         self.tree.heading("Nome", text="Nome")
@@ -24,21 +25,23 @@ class BuscaView(ctk.CTkFrame):
     def __init__(self, parent, usuarios):
         super().__init__(parent)
         
+        # Seleção de usuário ativo 
         ctk.CTkLabel(self, text="Usuário Ativo:", font=("Arial", 12)).pack(pady=2)
-        
         valores_usuarios = [f"{u[0]} - {u[1]}" for u in usuarios]
         self.combo_usuario = ctk.CTkComboBox(self, values=valores_usuarios, width=200)
         self.combo_usuario.pack(pady=2)
         if valores_usuarios: 
             self.combo_usuario.set(valores_usuarios[0])
         
+        # Campo de busca
         ctk.CTkLabel(self, text="Buscar Filme, Série ou Anime:", font=("Arial", 14, "bold")).pack(pady=5)
         self.entry_busca = ctk.CTkEntry(self, width=350, placeholder_text="Ex: Breaking Bad, Naruto...")
         self.entry_busca.pack(pady=5)
         
         self.btn_buscar = ctk.CTkButton(self, text="Pesquisar", fg_color="#2196F3", hover_color="#0b7dda")
         self.btn_buscar.pack(pady=5)
-        
+
+        # Tabela de resultados
         self.tree = ttk.Treeview(self, columns=("ID", "Título", "Tipo", "Ano"), show="headings")
         self.tree.heading("ID", text="ID API")
         self.tree.heading("Título", text="Título")
@@ -58,13 +61,14 @@ class BuscaView(ctk.CTkFrame):
 class ListaView(ctk.CTkFrame):
     def __init__(self, parent, usuarios):
         super().__init__(parent)
-        
+
+        # Filtro de usuário
         ctk.CTkLabel(self, text="Filtrar por Usuário:", font=("Arial", 14, "bold")).pack(pady=5)
-        
         valores_usuarios = [f"{u[0]} - {u[1]}" for u in usuarios]
         self.combo_usuario = ctk.CTkComboBox(self, values=valores_usuarios, width=200)
         self.combo_usuario.pack(pady=5)
-        
+
+        # Tabela de títulos salvas
         self.tree = ttk.Treeview(self, columns=("ID_Item", "Título", "Status"), show="headings")
         self.tree.heading("ID_Item", text="ID Registro")
         self.tree.heading("Título", text="Título")

@@ -11,11 +11,10 @@ class MainView(tk.Tk):
         self.title("ToWatch")
         self.geometry("800x600")
 
-        # --- ESTILIZAÇÃO DO TREEVIEW PARA MODO DARK ---
         style = ttk.Style(self)
-        style.theme_use("default") # Reseta o tema para permitir customização
-
-        # Configura as cores do corpo da tabela
+        style.theme_use("default") 
+        
+        # Cores do corpo da tabela 
         style.configure("Treeview",
                         background="#2b2b2b",
                         foreground="white",
@@ -24,17 +23,16 @@ class MainView(tk.Tk):
                         bordercolor="#343638",
                         borderwidth=0)
 
-        # Configura a cor da linha quando selecionada
+        # Cor da linha quando selecionada
         style.map('Treeview', background=[('selected', '#1f538d')])
 
-        # Configura as cores dos cabeçalhos (Colunas)
+        # Cores das colunas
         style.configure("Treeview.Heading",
                         background="#565b5e",
                         foreground="white",
                         relief="flat")
         
         style.map("Treeview.Heading", background=[('active', '#3484F0')])
-        # ----------------------------------------------
 
         # Barra de Navegação
         self.nav_frame = ctk.CTkFrame(self, corner_radius=0, fg_color="#1f1f1f")

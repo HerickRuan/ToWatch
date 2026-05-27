@@ -19,13 +19,13 @@ class MainController:
     def iniciar(self):
         self.view.mainloop()
     
-    # --- FUNÇÃO PARA ALTERNAR TELAS ---
+    # ALTERNAR TELAS
     def limpar_conteudo(self):
         """Destrói todos os widgets do contêiner principal"""
         for widget in self.view.content_frame.winfo_children():
             widget.destroy()
 
-    # --- CONTROLE DE USUÁRIOS ---
+    # CONTROLE DE USUÁRIOS 
     def abrir_usuarios(self):
         self.limpar_conteudo() # Limpa a tela anterior
         self.uv = UsuarioView(self.view.content_frame) # Cria no contêiner
@@ -61,7 +61,7 @@ class MainController:
         for u in self.db.listar_usuarios():
             self.uv.tree.insert("", "end", values=(u[0], u[1]))
 
-    # --- CONTROLE DE BUSCA (API) ---
+    # CONTROLE DE BUSCA - API 
     def abrir_busca(self):
         self.limpar_conteudo()
         usuarios = self.db.listar_usuarios()
@@ -94,7 +94,7 @@ class MainController:
         self.db.inserir_midia(id_usuario, valores_midia[0], valores_midia[1], status)
         messagebox.showinfo("Sucesso", f"'{valores_midia[1]}' salvo em sua lista como '{status}'!")
 
-    # --- CONTROLE DA MINHA LISTA ---
+    # CONTROLE DA MINHA LISTA 
     def abrir_lista(self):
         self.limpar_conteudo()
         usuarios = self.db.listar_usuarios()
